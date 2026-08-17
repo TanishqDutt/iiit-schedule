@@ -4,11 +4,11 @@ function createEmptyClass(){
     this.id = 1
     this.day = "mon"
     this.branch ="cse"
-    this.start = 2
-    this.end = 3
-    this.subjectcode = "CSC303"
-    this.teacher = "SCH"
-    this.rooms = ["N301"]
+    this.start = 0
+    this.end = 0
+    this.subjectcode = "SUBJECTCODE"
+    this.teacher = "TEACHER"
+    this.rooms = []
     
 }
 

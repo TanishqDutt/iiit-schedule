@@ -6,48 +6,58 @@ let days = ["mon", "teus", "wed", "thurs", "fri", "sat"]
 
 let initBranches = ["cse", "ece"]
 
-const EditableInput = ({content, changeContent})=>{
+
+const EditableInput = ({ content, setContent }) => {
 
     const [isEditing, setIsEditing] = useState(false);
 
     return (
         isEditing ? (
             <>
-                <input type="text" value={content} onChange={(e)=>{
-                    changeContent(e.target.value)
-                }} /> <button onClick={()=>setIsEditing(false)}><Check/></button>
+                <input type="text" value={content} onChange={
+                    (e)=>{
+                        setContent(e.target.value)
+                    }
+                } /> <button onClick={() => setIsEditing(false)}><Check /></button>
             </>
-        ):(
-            <div className="editable" onClick={()=>setIsEditing(true)}>{content}</div>
+        ) : (
+            <div className="editable" onClick={() => setIsEditing(true)}>{content}</div>
         )
     )
 }
 
-const RoomButton = ({roomName}) => {
+const RoomButton = ({ roomName }) => {
 
     const [editable, setEditable] = useState(false)
 
-    return (<div style={{padding:5+'px', border:'2px solid black'}}> {roomName}  <button>Edit</button></div>)
+    return (<div style={{ padding: 5 + 'px', border: '2px solid black' }}> {roomName}  <button>Edit</button></div>)
 
 }
 
-const ClassBlock = ({start, end, subjectcode, rooms, changeStart, changeEnd, changeSubjectCode})=>{
-    return(
+const ClassBlock = ({ start, end, subjectcode, rooms, onChange }) => {
+    return (
         <li className='classblock'>
             <div className="element startend">
                 <div className="label">Timing: </div>
-                <EditableInput content={start} changeContent={changeStart}/>
+                <EditableInput content={start} setContent={(value)=>{onChange('start',value)}}/>
                 <div className="label"><ArrowRight /></div>
-                
-                <EditableInput content={end} changeContent={changeEnd}/>
+
+                <EditableInput content={end} setContent={(value)=>{onChange('end',value)}} />
             </div>
             <div className="element subjectcode">
                 <div className="label">Subject Code: </div>
-                <EditableInput content={subjectcode} changeContent={changeSubjectCode}/>
+                <EditableInput content={subjectcode} setContent={(value)=>{onChange('subjectcode',value)}} />
             </div>
             <div className="element rooms">
                 <div className="label">Rooms: </div>
-                {rooms.map( (room)=><EditableInput content={room}/>)} <button>New</button><br />
+                {rooms.map((room, ind) => <EditableInput content={room} key={ind} setContent={(value)=>{
+                    onChange('rooms', rooms.map((r,i)=>{
+                        return i==ind ? value : r
+                    }))
+                }} />)} 
+                <button onClick={()=>{
+                    onChange('rooms' , [...rooms, 'NEW-ROOM'])
+                }}>New</button><br />
             </div>
         </li>
     )
@@ -56,70 +66,76 @@ const ClassBlock = ({start, end, subjectcode, rooms, changeStart, changeEnd, cha
 
 const TimetableForm = () => {
 
-    const [schedule, setSchedule] = useState(sem3)
-    
-    const [selectedDay, setSelectedDay] = useState(days[0])
-    const [branches, setBranches] = useState(initBranches)
+    const [selectedDay, setSelectedDay] = useState(0)
     const [selectedBranch, setSelectedBranch] = useState(0)
+    const [currentSchedule, setCurrentSchedule] = useState(sem3)
 
-    let currentSchedule = schedule[branches[selectedBranch]][selectedDay]
-    
-    function changeClassBlockProperty(propName, newPropValue, index, branch, day){
-        let scheduleD = {...schedule};
-        scheduleD[branch][day][index][propName] = newPropValue;
-        setSchedule(scheduleD)
+    function changeClassProperty(id, propertyName, value){
+        let newSchedule = currentSchedule.map((obj) => {
+            if(obj.id == id){
+                let copyObj = {...obj}
+                copyObj[propertyName] = value
+                return copyObj
+            }
+            else{
+                return obj
+            }
+        })
+
+        setCurrentSchedule(newSchedule)
     }
 
+    // function changeClassPropertyArray(id, propertyName, value, index){
+    //     let newSchedule = currentSchedule.map((obj) => {
+    //         if(obj.id == id){
+    //             let copyObj = {...obj}
+    //             copyObj[propertyName] = value
+    //             return copyObj
+    //         }
+    //         else{
+    //             return obj
+    //         }
+    //     })
 
-    function changeClassBlockPropertyArray(propName, newPropValue, index, branch, day){
-        let scheduleD = {...schedule};
-        scheduleD[branch][day][index][propName] = newPropValue;
-        setSchedule(scheduleD)
-    }
+    //     setCurrentSchedule(newSchedule)
+    // }
 
     return (
         <div>
 
 
             <button onClick={
-                ()=>{
-                    console.log(currentSchedule);   
-                    
+                () => {
+                    console.log(currentSchedule);
                 }
             }>LOG</button>
-            Branch name: 
-            <input type="text" value={branches[selectedBranch]} onChange={(e)=>{
-                setBranches(branches.map((val,ind)=>{
-                    if(ind==selectedBranch) return e.target.value
-                    else return val
-                }))
-            }}/><br/>
-            <select value={branches[selectedBranch]} onChange={(e)=>{
-                setSelectedBranch(branches.indexOf(e.target.value))
+
+            <select value={selectedBranch} onChange={(e) => {
+                setSelectedBranch(Number(e.target.value))
             }}>
-                {branches.map((branch) => <option value={branch} > {branch} </option> )}
+                {initBranches.map((branch) => <option value={initBranches.indexOf(branch)} key={initBranches.indexOf(branch)}> {branch} </option>)}
             </select>
-            <select value={selectedDay} onChange={(e)=>{
-                setSelectedDay(e.target.value)
+
+
+            <select value={selectedDay} onChange={(e) => {
+                setSelectedDay(Number(e.target.value))
             }}>
-                { days.map( (day) => <option value={day} > {day} </option>  ) }
+                {days.map((day) => <option value={days.indexOf(day)} key={days.indexOf(day)}> {day} </option>)}
             </select>
             <ul className='classblockcontainer'>
-                {currentSchedule.map((obj,ind)=>{
-                    return(
-                        <ClassBlock 
-                            start={obj.start} 
-                            end={obj.end} 
-                            subjectcode={obj.subjectcode} 
-                            rooms={obj.rooms}
-                            changeStart={(value)=>changeClassBlockProperty("start",value, ind, branches[selectedBranch], selectedDay)}
-                            changeEnd={(value)=>changeClassBlockProperty("end",value, ind, branches[selectedBranch], selectedDay)}
-                            changeSubjectCode={(value)=>changeClassBlockProperty("subjectcode",value,ind,branches[selectedBranch],selectedDay)}
-                            
-                            
-                        />
-                    )
-                })}
+                {
+                    currentSchedule
+                        .filter((obj) => obj.position == [initBranches[selectedBranch], days[selectedDay]].join('-'))
+                        .map((obj, ind) => {
+                            return (
+                                <ClassBlock
+                                    {...obj}
+                                    key={obj.id}
+                                    onChange = {(parameter, value)=>{changeClassProperty(obj.id, parameter, value)}}
+                                />
+                            )
+                        })
+                }
             </ul>
 
 

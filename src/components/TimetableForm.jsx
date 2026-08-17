@@ -68,7 +68,7 @@ const TimetableForm = () => {
 
     const [selectedDay, setSelectedDay] = useState(0)
     const [selectedBranch, setSelectedBranch] = useState(0)
-    const [currentSchedule, setCurrentSchedule] = useState(sem3)
+    const [currentSchedule, setCurrentSchedule] = useState(sem3.sem3)
 
     function changeClassProperty(id, propertyName, value){
         let newSchedule = currentSchedule.map((obj) => {
@@ -85,20 +85,17 @@ const TimetableForm = () => {
         setCurrentSchedule(newSchedule)
     }
 
-    // function changeClassPropertyArray(id, propertyName, value, index){
-    //     let newSchedule = currentSchedule.map((obj) => {
-    //         if(obj.id == id){
-    //             let copyObj = {...obj}
-    //             copyObj[propertyName] = value
-    //             return copyObj
-    //         }
-    //         else{
-    //             return obj
-    //         }
-    //     })
+    function addNewClassBlock(){
+        let newClass = new sem3.createEmptyClass();
+        
+        newClass.day = days[selectedDay]
+        newClass.branch = initBranches[selectedBranch]
+        newClass.id = currentSchedule.length + 1
+        
+        setCurrentSchedule([...currentSchedule, newClass])
+        
+    }
 
-    //     setCurrentSchedule(newSchedule)
-    // }
 
     return (
         <div>
@@ -122,10 +119,16 @@ const TimetableForm = () => {
             }}>
                 {days.map((day) => <option value={days.indexOf(day)} key={days.indexOf(day)}> {day} </option>)}
             </select>
+
+            <button onClick={()=>{
+                addNewClassBlock()
+            }}>New Class Block</button>
+
+
             <ul className='classblockcontainer'>
                 {
                     currentSchedule
-                        .filter((obj) => obj.position == [initBranches[selectedBranch], days[selectedDay]].join('-'))
+                        .filter((obj) => obj.branch == initBranches[selectedBranch] && obj.day == days[selectedDay])
                         .map((obj, ind) => {
                             return (
                                 <ClassBlock

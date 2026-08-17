@@ -15,11 +15,11 @@ const EditableInput = ({ content, setContent, canDelete = false, deleteContent }
         isEditing ? (
             <>
                 <input type="text" value={content} onChange={
-                    (e)=>{
+                    (e) => {
                         setContent(e.target.value)
                     }
-                } /> 
-                {canDelete && <button onClick={() => {setIsEditing(false);deleteContent();}}><X /></button>}
+                } />
+                {canDelete && <button onClick={() => { setIsEditing(false); deleteContent(); }}><X /></button>}
                 <button onClick={() => setIsEditing(false)}><Check /></button>
             </>
         ) : (
@@ -28,44 +28,59 @@ const EditableInput = ({ content, setContent, canDelete = false, deleteContent }
     )
 }
 
-const RoomButton = ({ roomName }) => {
 
-    const [editable, setEditable] = useState(false)
-
-    return (<div style={{ padding: 5 + 'px', border: '2px solid black' }}> {roomName}  <button>Edit</button></div>)
-
+const EditableSelect = ({content, setContent, contentArray}) => {
+    return (
+        <select value={content} onChange={(e)=>{
+            setContent(e.target.value)
+        }}>
+            {contentArray.map((value, ind)=>{
+                return <option value={value} key={ind}>{value}</option>
+            })}
+        </select>
+    )
 }
 
-const ClassBlock = ({ start, end, subjectcode, rooms, onChange, deleteClassBlock }) => {
+
+const ClassBlock = ({ start, end, subjectcode,teacher , rooms, onChange, deleteClassBlock }) => {
     return (
         <li className='classblock'>
-            <button style={{color:'red'}} 
+            <button style={{ color: 'red' }}
                 onClick={deleteClassBlock}
             >DELETE CLASS</button>
             <div className="element startend">
                 <div className="label">Timing: </div>
-                <EditableInput content={start} setContent={(value)=>{onChange('start',value)}}/>
+                <EditableInput content={start} setContent={(value) => { onChange('start', value) }} />
                 <div className="label"><ArrowRight /></div>
 
-                <EditableInput content={end} setContent={(value)=>{onChange('end',value)}} />
+                <EditableInput content={end} setContent={(value) => { onChange('end', value) }} />
             </div>
             <div className="element subjectcode">
                 <div className="label">Subject Code: </div>
-                <EditableInput content={subjectcode} setContent={(value)=>{onChange('subjectcode',value)}} />
+                {/* <EditableInput content={subjectcode} setContent={(value) => { onChange('subjectcode', value) }} /> */}
+                <EditableSelect content={subjectcode} contentArray={sem3.subjectcodes} setContent={(value) => { onChange('subjectcode', value) }} />
+            </div>
+            <div className="element teacher">
+                <div className="label">Teacher: </div>
+                {/* <EditableInput content={teacher} setContent={(value)=>onChange('teacher', value)}/> */}
+
+                <EditableSelect content={teacher} contentArray={sem3.teachers} setContent={(value)=>{onChange('teacher', value)}}/>
+
+
             </div>
             <div className="element rooms">
                 <div className="label">Rooms: </div>
-                {rooms.map((room, ind) => <EditableInput content={room} key={ind} setContent={(value)=>{
-                    onChange('rooms', rooms.map((r,i)=>{
-                        return i==ind ? value : r
+                {rooms.map((room, ind) => <EditableInput content={room} key={ind} setContent={(value) => {
+                    onChange('rooms', rooms.map((r, i) => {
+                        return i == ind ? value : r
                     }))
-                }} canDelete={true} deleteContent={()=>{
-                    onChange('rooms', rooms.filter((r,i)=>{
-                        return i!=ind
+                }} canDelete={true} deleteContent={() => {
+                    onChange('rooms', rooms.filter((r, i) => {
+                        return i != ind
                     }))
-                }}/>)} 
-                <button onClick={()=>{
-                    onChange('rooms' , [...rooms, `NEW-ROOM ${rooms.length+1}`])
+                }} />)}
+                <button onClick={() => {
+                    onChange('rooms', [...rooms, `NEW-ROOM ${rooms.length + 1}`])
                 }}>New</button><br />
             </div>
         </li>
@@ -79,14 +94,14 @@ const TimetableForm = () => {
     const [selectedBranch, setSelectedBranch] = useState(0)
     const [currentSchedule, setCurrentSchedule] = useState(sem3.sem3)
 
-    function changeClassProperty(id, propertyName, value){
+    function changeClassProperty(id, propertyName, value) {
         let newSchedule = currentSchedule.map((obj) => {
-            if(obj.id == id){
-                let copyObj = {...obj}
+            if (obj.id == id) {
+                let copyObj = { ...obj }
                 copyObj[propertyName] = value
                 return copyObj
             }
-            else{
+            else {
                 return obj
             }
         })
@@ -94,25 +109,25 @@ const TimetableForm = () => {
         setCurrentSchedule(newSchedule)
     }
 
-    function addNewClassBlock(isTheory = true){
-        let newClass = new sem3.createEmptyClass();
-        
+    function addNewClassBlock(isTheory = true) {
+        let newClass = new sem3.ClassBlock();
+
         newClass.day = days[selectedDay]
         newClass.branch = initBranches[selectedBranch]
         newClass.id = Date.now()
-        
-        if(isTheory && newClass.branch == 'cse'){
+
+        if (isTheory && newClass.branch == 'cse') {
             newClass.rooms = ['N301']
         }
-        else if(isTheory && newClass.branch == 'ece'){
+        else if (isTheory && newClass.branch == 'ece') {
             newClass.rooms = ['N302']
         }
-        else if(!isTheory){
+        else if (!isTheory) {
             newClass.rooms = ['201', '202', '207']
         }
 
         setCurrentSchedule([...currentSchedule, newClass])
-        
+
     }
 
 
@@ -139,11 +154,11 @@ const TimetableForm = () => {
                 {days.map((day) => <option value={days.indexOf(day)} key={days.indexOf(day)}> {day} </option>)}
             </select>
 
-            <button onClick={()=>{
+            <button onClick={() => {
                 addNewClassBlock(true)
             }}>New Theory Class</button>
 
-            <button onClick={()=>{
+            <button onClick={() => {
                 addNewClassBlock(false)
             }}>New Practical Class</button>
 
@@ -157,16 +172,15 @@ const TimetableForm = () => {
                                 <ClassBlock
                                     {...obj}
                                     key={obj.id}
-                                    onChange = {(parameter, value)=>{changeClassProperty(obj.id, parameter, value)}}
-                                    deleteClassBlock={()=>{
-                                        setCurrentSchedule(currentSchedule.filter((c)=>c.id != obj.id))
+                                    onChange={(parameter, value) => { changeClassProperty(obj.id, parameter, value) }}
+                                    deleteClassBlock={() => {
+                                        setCurrentSchedule(currentSchedule.filter((c) => c.id != obj.id))
                                     }}
                                 />
                             )
                         })
                 }
             </ul>
-
 
         </div>
     )

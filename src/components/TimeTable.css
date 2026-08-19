@@ -1,0 +1,36 @@
+.timetable{
+    background-color: rgb(255, 207, 207);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.timetableblock{
+    height: 600px;
+    width: 840px;
+    background-color: rgb(215, 215, 255);
+    display: flex;
+    flex-flow: column;
+}
+.timetableblock .row{
+    position: relative;
+    width: 100%;
+    height: 100px;
+    background-color: yellow;
+    border: 2px solid black;
+
+}
+.timetableblock .row .class{
+    height: 100%;
+    position: absolute;
+    background-color: rgb(179, 179, 255);
+    scale: 0.9;
+    color: white;
+    /* border: 2px dashed purple; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}

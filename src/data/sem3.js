@@ -1,3 +1,38 @@
+class Time{
+  constructor(time){
+    let strTime = time.toString()
+
+    if(strTime.length >= 3){
+      this.hours = Number(strTime.slice(0,-2))
+      this.minutes = Number(strTime.slice(-2))
+    }else{
+      this.hours = 0
+      this.minutes = Number(strTime)
+    }
+
+
+    this.isNoon = this.hours>=12
+    this.past12 = this.hours>12
+
+
+  }
+
+  getString(){
+
+    let minutesPart = this.minutes.toString().padStart(2,'0')
+    let ampmPart = this.isNoon ? 'PM' : 'AM'
+    let hoursPart = (this.past12 ? this.hours-12 : this.hours).toString().padStart(2,'0')
+
+    if(this.hours == 0){
+      hoursPart = '12'
+    }
+
+    return `${hoursPart}:${minutesPart} ${ampmPart}`
+    
+  }
+}
+
+
 function ClassBlock() {
   this.id = 1;
   this.day = "mon";
@@ -146,6 +181,18 @@ let sem3 = [
 
 let teachers = ["DB", "IM", "SCH", "DRD", "SUR", "RM", "SSM"];
 
+
+let timeLabels = [
+  [new Time(915), new Time(1005)],
+  [new Time(1010), new Time(1100)],
+  [new Time(1105), new Time(1155)],
+  [new Time(1200), new Time(1250)],
+  [new Time(1415), new Time(1505)],
+  [new Time(1510), new Time(1600)],
+  [new Time(1605), new Time(1655)],
+]
+
+
 let subjectcodes = [
   "CSC301",
   "CSC302",
@@ -157,4 +204,4 @@ let subjectcodes = [
   "CSC313",
 ];
 
-export default { sem3, ClassBlock, teachers, subjectcodes };
+export default { sem3, ClassBlock, teachers, subjectcodes, timeLabels };

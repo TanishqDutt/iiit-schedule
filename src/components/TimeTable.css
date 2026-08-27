@@ -7,7 +7,7 @@
 
 
 
-.timetable{
+.main{
     background-color: rgb(255, 207, 207);
     height: 100vh;
     width: 100vw;
@@ -16,35 +16,53 @@
     align-items: center;
 }
 
+.main .timetable{
+    display: grid;
+}
+.timetable .columnnames{
+    grid-column: 2/3;
+    grid-row: 1/2;
+    width: 60vw;
+}
+.timetable .rownames{
+    grid-column: 1/2;
+    grid-row: 2/3;
+    background-color: #fff;
+    display: grid;
+    grid-template-rows: repeat(6,1fr);
+    min-height: 0;
+    height: 60vh;
+}
+
 .timetableblock{
-    height: 600px;
-    min-width: 960px;
+    height: 60vh;
+    width: 60vw;
     background-color: rgb(215, 215, 255);
-    display: flex;
-    flex-flow: column;
-    /* flex-wrap: nowrap; */
+    display: grid;
+    grid-template-rows: repeat(6,1fr);
+    grid-row: 2/3;
+    grid-column: 2/3;
 }
 .timetableblock .row{
     width: 100%;
-    height: 100%;
+    min-height: 0;
     background-color: yellow;
     border: 2px solid black;
-    display: flex;
+    display: grid;
+    grid-template-columns: 8fr 1fr 6fr;
     
 }
 .timetableblock .row .section{
-    display: flex;
-    position: relative;
+    display: grid;
     height: 100%;
     background-color: cadetblue;
-    border: 2px solid rgb(187, 123, 123);
+    border: 2px solid rgb(187, 123   , 123);
 
 }
 .timetableblock .row .section .class{
-    height: 100%;
-    position: absolute;
     background-color: rgba(179, 179, 255, 0.475);
-    /* scale: 0.9;  */
+    min-width: 0;
+    min-height: 0;
     color: white;
     border: 2px dotted purple;
     display: flex;
@@ -53,13 +71,47 @@
     font-size: 20px;
 }
 .timetableblock .row .section.before{
-    flex: 4;
+     grid-template-columns: repeat(4,1fr);
 }
 .timetableblock .row .section.after{
-    flex: 3;
+    grid-template-columns: repeat(3,1fr);
 }
 
 .timetableblock .row .break{
+    background-color: chartreuse;
     height: 100%;
-    flex: 1;
+}
+
+
+.timetable .rownames .rowname{
+    padding: 0px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.timetable .columnnames{
+    display: grid;
+    grid-template-columns: 8fr 1fr 6fr;
+}
+.timetable .columnnames .section{
+    display: grid;
+}
+.timetable .columnnames .section.before{
+    grid-template-columns: repeat(4,1fr);
+
+}
+
+.timetable .columnnames .section.after{
+    grid-template-columns: repeat(3,1fr);
+
+}
+.timetable .columnnames .section .time{
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    min-width: 0;
+    border: 1px solid black;
+    justify-content: center;
+    align-items: center;
 }

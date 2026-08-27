@@ -2,6 +2,7 @@ import React from 'react'
 
 import "./TimeTable.css"
 import sem3 from '../data/sem3'
+import {ArrowDown} from 'lucide-react'
 
 
 let days = ["mon", "teus", "wed", "thurs", "fri", "sat"]
@@ -22,9 +23,8 @@ const TimeTableBlock = () => {
           {sem3.sem3.filter((c) => c.day == elem && c.end<=3).map((cls) => {
             
             return(
-              <div className="class" style={{
-                left:(cls.start*120).toString()+"px",
-                width:((cls.end - cls.start + 1)*120).toString()+"px"
+              <div className={`class s${cls.id}`} style={{
+                gridColumn: `${Number(cls.start)+1}/${Number(cls.end)+2}`
               }}>
                 {cls.subjectcode}
               </div>
@@ -38,8 +38,7 @@ const TimeTableBlock = () => {
             
             return(
               <div className="class" style={{
-                left:((Number(cls.start) - 4)*120).toString()+"px",
-                width:((cls.end - cls.start + 1)*120).toString()+"px"
+                gridColumn: `${Number(cls.start)-4+1}/${Number(cls.end)-4+2}`
               }}>
                 {cls.subjectcode}
               </div>
@@ -60,8 +59,35 @@ const TimeTableBlock = () => {
 
 const TimeTable = () => {
   return (
-    <div className='timetable'>
-      <TimeTableBlock />
+    <div className='main'>
+      <div className="timetable">
+        <div className="columnnames">
+          <div className="section before">
+            {sem3.timeLabels.filter((time, index)=> index<=3).map((time)=>{
+              return (
+                <div className='time'>{time[0].getString()} <ArrowDown/> {time[1].getString()}</div>
+              )
+            })}
+          </div>
+          <div className="break"></div>
+          <div className="section after">
+            {sem3.timeLabels.filter((time, index)=> index>=4).map((time)=>{
+              return (
+                <div className='time'>{time[0].getString()} <ArrowDown/> {time[1].getString()}</div>
+              )
+            })}
+          </div>
+        </div>
+        <div className="rownames">
+          {days.map((day)=>{
+            return(
+              <div className="rowname">{day}</div>
+            )
+          })}
+        </div>
+        <TimeTableBlock />
+        
+      </div>
     </div>
   )
 }

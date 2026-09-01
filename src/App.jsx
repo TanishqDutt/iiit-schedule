@@ -1,10 +1,12 @@
 import { useState } from 'react'
-import './App.css'
-import TimetableForm from './components/TimetableForm'
+import './pages/styles/App.css'
+import TimetableForm from './pages/TimetableForm'
 import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
-import TimeTable from './components/TimeTable'
+import TimeTable from './pages/components/TimeTable'
+import Schedule from './pages/Schedule'
 
-
+import data from './data/allSem'
+const {allSem, timeLabels} = data
 
 function App() {
 
@@ -18,9 +20,15 @@ function App() {
             <li>
               <Link to={"/editor"}>Go to Editor</Link>
             </li>
-            <li>
-              <Link to={"/sem3-cse"}>Go to TimeTable</Link>
-            </li>
+            {
+              Object.keys(allSem).map((sem)=>{
+                return (
+                  <li>
+                    <Link to={`/s/${sem}`}>Go to /s/{sem}</Link>
+                  </li>
+                )
+              })
+            }
           </ul>
         </>
     },
@@ -29,8 +37,8 @@ function App() {
       element:<TimetableForm />
     },
     {
-      path: "/sem3-cse",
-      element: <TimeTable />
+      path: "/s/:semester",
+      element: <Schedule timeLabels={timeLabels} allSem={allSem}/>
     },
   ])
 

@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
-import sem3 from '../data/sem3'
+// import sem3 from '../data/sem3'
+import allSem from '../data/allSem'
+import ClassBlock from '../data/classBlock' ;
+
+
 import { ArrowRight, Check, X } from 'lucide-react'
 
 let days = ["mon", "teus", "wed", "thurs", "fri", "sat"]
 
-let initBranches = ["cse", "ece"]
+let initBranches = ["Sec-a", "Sec-b"]
 
 
 const EditableInput = ({ content, setContent, canDelete = false, deleteContent }) => {
@@ -42,7 +46,7 @@ const EditableSelect = ({content, setContent, contentArray}) => {
 }
 
 
-const ClassBlock = ({ start, end, subjectcode,teacher , rooms, onChange, deleteClassBlock }) => {
+const ClassBlockContainer = ({ start, end, subjectcode,teacher , rooms, onChange, deleteClassBlock }) => {
     return (
         <li className='classblock'>
             <button style={{ color: 'red' }}
@@ -58,13 +62,13 @@ const ClassBlock = ({ start, end, subjectcode,teacher , rooms, onChange, deleteC
             <div className="element subjectcode">
                 <div className="label">Subject Code: </div>
                 {/* <EditableInput content={subjectcode} setContent={(value) => { onChange('subjectcode', value) }} /> */}
-                <EditableSelect content={subjectcode} contentArray={sem3.subjectcodes} setContent={(value) => { onChange('subjectcode', value) }} />
+                <EditableSelect content={subjectcode} contentArray={allSem.subjectcodes} setContent={(value) => { onChange('subjectcode', value) }} />
             </div>
             <div className="element teacher">
                 <div className="label">Teacher: </div>
                 {/* <EditableInput content={teacher} setContent={(value)=>onChange('teacher', value)}/> */}
 
-                <EditableSelect content={teacher} contentArray={sem3.teachers} setContent={(value)=>{onChange('teacher', value)}}/>
+                <EditableSelect content={teacher} contentArray={allSem.teachers} setContent={(value)=>{onChange('teacher', value)}}/>
 
 
             </div>
@@ -92,7 +96,7 @@ const TimetableForm = () => {
 
     const [selectedDay, setSelectedDay] = useState(0)
     const [selectedBranch, setSelectedBranch] = useState(0)
-    const [currentSchedule, setCurrentSchedule] = useState(sem3.sem3)
+    const [currentSchedule, setCurrentSchedule] = useState([])
 
     function changeClassProperty(id, propertyName, value) {
         let newSchedule = currentSchedule.map((obj) => {
@@ -110,17 +114,17 @@ const TimetableForm = () => {
     }
 
     function addNewClassBlock(isTheory = true) {
-        let newClass = new sem3.ClassBlock();
+        let newClass = new ClassBlock();
 
         newClass.day = days[selectedDay]
         newClass.branch = initBranches[selectedBranch]
         newClass.id = Date.now()
 
-        if (isTheory && newClass.branch == 'cse') {
-            newClass.rooms = ['N301']
+        if (isTheory && newClass.branch == 'Sec-a') {
+            newClass.rooms = ['G01']
         }
-        else if (isTheory && newClass.branch == 'ece') {
-            newClass.rooms = ['N302']
+        else if (isTheory && newClass.branch == 'Sec-b') {
+            newClass.rooms = ['G02']
         }
         else if (!isTheory) {
             newClass.rooms = ['201', '202', '207']
@@ -169,7 +173,7 @@ const TimetableForm = () => {
                         .filter((obj) => obj.branch == initBranches[selectedBranch] && obj.day == days[selectedDay])
                         .map((obj, ind) => {
                             return (
-                                <ClassBlock
+                                <ClassBlockContainer
                                     {...obj}
                                     key={obj.id}
                                     onChange={(parameter, value) => { changeClassProperty(obj.id, parameter, value) }}

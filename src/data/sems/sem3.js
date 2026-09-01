@@ -1,48 +1,4 @@
-class Time{
-  constructor(time){
-    let strTime = time.toString()
-
-    if(strTime.length >= 3){
-      this.hours = Number(strTime.slice(0,-2))
-      this.minutes = Number(strTime.slice(-2))
-    }else{
-      this.hours = 0
-      this.minutes = Number(strTime)
-    }
-
-
-    this.isNoon = this.hours>=12
-    this.past12 = this.hours>12
-
-
-  }
-
-  getString(){
-
-    let minutesPart = this.minutes.toString().padStart(2,'0')
-    let ampmPart = this.isNoon ? 'PM' : 'AM'
-    let hoursPart = (this.past12 ? this.hours-12 : this.hours).toString().padStart(2,'0')
-
-    if(this.hours == 0){
-      hoursPart = '12'
-    }
-
-    return `${hoursPart}:${minutesPart} ${ampmPart}`
-    
-  }
-}
-
-
-function ClassBlock() {
-  this.id = 1;
-  this.day = "mon";
-  this.branch = "cse";
-  this.start = 0;
-  this.end = 0;
-  this.subjectcode = subjectcodes[0];
-  this.teacher = teachers[0];
-  this.rooms = [];
-}
+import ClassBlock from "../classBlock";
 
 /**@type {ClassBlock[]} */
 
@@ -177,31 +133,126 @@ let sem3 = [
     teacher: "IM",
     rooms: ["201", "202", "207"],
   },
+  {
+    id: 1788190185762,
+    day: "mon",
+    branch: "ece",
+    start: "2",
+    end: "3",
+    subjectcode: "MAC301",
+    teacher: "RM",
+    rooms: ["N302"],
+  },
+  {
+    id: 1788190186083,
+    day: "mon",
+    branch: "ece",
+    start: "4",
+    end: "5",
+    subjectcode: "ECC301",
+    teacher: "PC",
+    rooms: ["N302"],
+  },
+  {
+    id: 1788190667339,
+    day: "teus",
+    branch: "ece",
+    start: "1",
+    end: "3",
+    subjectcode: "CSC311",
+    teacher: "SUR",
+    rooms: ["201", "207"],
+  },
+  {
+    id: 1788190668850,
+    day: "teus",
+    branch: "ece",
+    start: "4",
+    end: "5",
+    subjectcode: "HUC301",
+    teacher: "DRD",
+    rooms: ["N302"],
+  },
+  {
+    id: 1788190669466,
+    day: "teus",
+    branch: "ece",
+    start: "6",
+    end: "6",
+    subjectcode: "CSC301",
+    teacher: "SUR",
+    rooms: ["N302"],
+  },
+  {
+    id: 1788191012589,
+    day: "wed",
+    branch: "ece",
+    start: 0,
+    end: "1",
+    subjectcode: "ECC302",
+    teacher: "SPA",
+    rooms: ["N302"],
+  },
+  {
+    id: 1788191012780,
+    day: "wed",
+    branch: "ece",
+    start: "2",
+    end: "3",
+    subjectcode: "ECC301",
+    teacher: "PC",
+    rooms: ["N302"],
+  },
+  {
+    id: 1788191012969,
+    day: "wed",
+    branch: "ece",
+    start: "4",
+    end: "5",
+    subjectcode: "CSC301",
+    teacher: "SUR",
+    rooms: ["N302"],
+  },
+  {
+    id: 1788191013429,
+    day: "wed",
+    branch: "ece",
+    start: "6",
+    end: "6",
+    subjectcode: "HUC301",
+    teacher: "DRD",
+    rooms: ["N302"],
+  },
+  {
+    id: 1788191094866,
+    day: "thurs",
+    branch: "ece",
+    start: 0,
+    end: "1",
+    subjectcode: "ECC302",
+    teacher: "SPA",
+    rooms: ["N302"],
+  },
+  {
+    id: 1788191095055,
+    day: "thurs",
+    branch: "ece",
+    start: "2",
+    end: "3",
+    subjectcode: "MAC301",
+    teacher: "SSM",
+    rooms: ["N302"],
+  },
+  {
+    id: 1788191138723,
+    day: "fri",
+    branch: "ece",
+    start: "1",
+    end: "3",
+    subjectcode: "ECC312",
+    teacher: "RS",
+    rooms: ["203"],
+  },
 ];
 
-let teachers = ["DB", "IM", "SCH", "DRD", "SUR", "RM", "SSM"];
-
-
-let timeLabels = [
-  [new Time(915), new Time(1005)],
-  [new Time(1010), new Time(1100)],
-  [new Time(1105), new Time(1155)],
-  [new Time(1200), new Time(1250)],
-  [new Time(1415), new Time(1505)],
-  [new Time(1510), new Time(1600)],
-  [new Time(1605), new Time(1655)],
-]
-
-
-let subjectcodes = [
-  "CSC301",
-  "CSC302",
-  "CSC303",
-  "MAC301",
-  "HUC301",
-  "CSC311",
-  "CSC312",
-  "CSC313",
-];
-
-export default { sem3, ClassBlock, teachers, subjectcodes, timeLabels };
+export default sem3;

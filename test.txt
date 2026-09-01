@@ -1,0 +1,6 @@
+- Routes:
+/sem3/cse
+
+- adding new semester is easy.
+- organize teacher/subject data
+- organize library

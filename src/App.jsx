@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './pages/styles/App.css'
 import TimetableForm from './pages/TimetableForm'
-import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom'
+import { createHashRouter, RouterProvider, Link } from 'react-router-dom'
 import TimeTable from './pages/components/TimeTable'
 import Schedule from './pages/Schedule'
 
@@ -10,7 +10,7 @@ const {allSem, timeLabels} = data
 
 function App() {
 
-  const router = createBrowserRouter([
+  const router = createHashRouter([
     {
         path: "/",
         element: 

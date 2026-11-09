@@ -255,4 +255,18 @@ let sem3 = [
   },
 ];
 
-export default sem3;
+
+const subjects = {
+    MAC301: "Calculus and Differential Equations (Mathematics - III)",
+    CSC301: "Computer Organization and Architecture",
+    CSC302: "Algorithm-I",
+    CSC303: "Discrete Mathematics",
+    HUC301: "Psychology (Humanities-III)",
+    CSC311: "Computer Organization and Architecture Lab",
+    CSC312: "Algorithms-I Lab",
+    CSC313: "Python (Programming-II) Lab"
+};
+
+
+
+export default {sem3, subjects};

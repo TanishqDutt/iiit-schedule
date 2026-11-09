@@ -4,9 +4,10 @@ import TimetableForm from './pages/TimetableForm'
 import { createHashRouter, RouterProvider, Link } from 'react-router-dom'
 import TimeTable from './pages/components/TimeTable'
 import Schedule from './pages/Schedule'
+import PhoneSchedule from './pages/PhoneSchedule'
 
 import data from './data/allSem'
-const {allSem, timeLabels} = data
+const {allSem, timeLabels, timeLabels_} = data
 
 function App() {
 
@@ -39,6 +40,10 @@ function App() {
     {
       path: "/s/:semester",
       element: <Schedule timeLabels={timeLabels} allSem={allSem}/>
+    },
+    {
+      path: "/ps/:semester",
+      element: <PhoneSchedule timeLabels={timeLabels} allSem={allSem}/>
     },
   ])
 

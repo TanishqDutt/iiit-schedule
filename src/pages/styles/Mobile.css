@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
+    font-size: 1em;
+}
+
+
+:root{
+    --btn-background: #FAFF7F;
+    --btn-border: #e7ca38;
+    --btn-color: #774b05;
+
+    --btn2-background: #91A6FF;
+    --btn2-border: #5b79ff;
+    --btn2-color: #230586;
+
+    --type-1: #F4F1BB;
+    --type-2: #9BC1BC;
+    --type-3: #DAA49A;
+    --type-4: #E1BBC9;
+    --type-5: #B5B0BF;
+
+}
+
+
+
+
+.mobile-top .navbar{
+    position: fixed;
+
+    /* background: red; */
+    pointer-events: auto;
+    height: 2.7em;
+
+    top:0;
+    left: 0;
+
+
+
+    font-size: 1.5em;
+    width: 100vw;
+
+    /* display: grid; */
+    /* justify-content: center; */
+
+    /* grid-template-columns: 1fr 1fr 1fr; */
+
+    /* padding: 10px; */
+    
+    transition: transform 0.2s ease-in-out;
+    
+    
+}
+
+
+.mobile-top .navbar.hidden{
+    transform: translateY(-200%);
+}
+
+.mobile-top .navbar button{
+    /* min-width:0; */
+    position: absolute;
+    top: 10px;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 100px;
+    border: none;
+    background-color: var(--btn-background);
+    border: 5px solid var(--btn-border);
+    /* font-family: 'Dongle'; */
+    display: flex;
+    align-items: center;
+    
+    
+    font-family: "Roboto Condensed", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    
+    color: var(--btn-color);
+    
+    
+}
+.mobile-top .navbar button.sem-change{
+    left: 50%;
+    translate: -50% 0;
+}
+.mobile-top .navbar button.day-change{
+    left:10px;
+}
+
+
+
+.mobile-top .rightpane{
+    position: fixed;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    font-size: 2.2em;
+    /* background: #000; */
+    transition: transform 0.2s ease-in-out;
+    top: 1.5em;
+}
+.mobile-top .rightpane.hidden{
+    transform: translateX(100%);
+}
+
+.mobile-top .rightpane button{
+    padding: 10px;
+    height: 2em;
+    width: auto;
+    aspect-ratio: 1/1;
+    margin: 10px;
+    border: none;
+    background-color: var(--btn2-background);
+    border-radius: 10px;
+    color: var(--btn2-color);
+    border-color: var(--btn2-border);
+    transition: border 0.2s ease-in-out;
+    transition: transform 0.1s ease-in-out;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mobile-top .rightpane button.selected { 
+    border: 0.15em solid var(--btn2-border);
+}
+
+
+button{
+    transition: transform 0.1s ease-in-out;
+    
+}
+button:active{
+    transform: scale(0.9);
+}
+
+
+.class.type-1{
+    background-color: var(--type-1);
+}
+.class.type-2{
+    background-color: var(--type-2);
+}
+.class.type-3{
+    background-color: var(--type-3);
+}
+.class.type-4{
+    background-color: var(--type-4);
+}
+.class.type-5{
+    background-color: var(--type-5);
+}
+
+
+.mobile-main .seperator{
+    width: 100vw;
+    height: 4.8em;
+    background-image: url("../../assets/grid_bg.png");
+}

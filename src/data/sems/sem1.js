@@ -285,4 +285,18 @@ let sem1 = [
   },
 ];
 
-export default sem1
+
+const subjects = {
+    MAC101: "Linear Algebra (Mathematics-I)",
+    PHC101: "Oscillations and Waves (Physics-I)",
+    ECC101: "Basic Electrical and Electronics Engineering",
+    CSC101: "C Language (Programming-I)",
+    HUC101: "English for Communication",
+    HUC102: "Values & Ethics in Profession (Humanities-I)",
+    CSC111: "C Language (Programming-I) Lab",
+    ECC111: "Basic Electronics Engineering Lab"
+};
+
+
+
+export default {sem1, subjects}

@@ -2,6 +2,8 @@ import sem1 from "./sems/sem1";
 import sem3 from "./sems/sem3";
 import sem5 from "./sems/sem5";
 
+import teachersData from "./teachers";
+
 class Time{
   constructor(time){
     let strTime = time.toString()
@@ -41,15 +43,20 @@ class Time{
 
 let allSem = {
     sem1: {
-      schedule: sem1,
+      schedule: sem1.sem1,
+      subjects: sem1.subjects,
+      name: "Semester - 1",
       branches: ["Sec-a", "Sec-b"],
     },
     sem3: {
-      schedule: sem3,
+      schedule: sem3.sem3,
+      subjects: sem3.subjects,
+      name: "Semester - 3",
       branches: ["cse", "ece"],
     },
     sem5: {
       schedule: sem5,
+      name: "Semester - 5",
       branches: ["cse", "ece"],
     },
 }
@@ -63,11 +70,25 @@ let timeLabels = [
   [new Time(915), new Time(1005)],
   [new Time(1010), new Time(1100)],
   [new Time(1105), new Time(1155)],
-  [new Time(1200), new Time(1250)],
+  [new Time(1200), new Time(1250),],
   [new Time(1415), new Time(1505)],
   [new Time(1510), new Time(1600)],
   [new Time(1605), new Time(1655)],
 ]
+let timeLabels_ = [
+    new Time(915),
+    new Time(1010),
+    new Time(1105),
+    new Time(1200),
+    new Time(1200),
+    new Time(1415),
+    new Time(1505),
+    new Time(1510),
+    new Time(1600),
+    new Time(1605),
+    new Time(1655)
+]
+
 
 
 let subjectcodes = [
@@ -93,4 +114,4 @@ let subjectcodes = [
 ];
 
 
-export default {allSem, subjectcodes, teachers, timeLabels}
+export default {allSem, subjectcodes, teachers, timeLabels, timeLabels_, teachersData}

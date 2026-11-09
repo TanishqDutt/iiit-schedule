@@ -264,9 +264,11 @@ const subjects = {
     HUC301: "Psychology (Humanities-III)",
     CSC311: "Computer Organization and Architecture Lab",
     CSC312: "Algorithms-I Lab",
-    CSC313: "Python (Programming-II) Lab"
-};
-
+    CSC313: "Python (Programming-II) Lab",
+    ECC301: "Signals and Systems",
+    ECC302: "Semiconductor Devices",
+    ECC312: "Semiconductor Devices Lab",
+  };
 
 
 export default {sem3, subjects};

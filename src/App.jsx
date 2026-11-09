@@ -7,7 +7,7 @@ import Schedule from './pages/Schedule'
 import PhoneSchedule from './pages/PhoneSchedule'
 
 import data from './data/allSem'
-const {allSem, timeLabels, timeLabels_} = data
+const {allSem, timeLabels, timeLabels_, teachersData} = data
 
 function App() {
 
@@ -43,7 +43,7 @@ function App() {
     },
     {
       path: "/ps/:semester",
-      element: <PhoneSchedule timeLabels={timeLabels} allSem={allSem}/>
+      element: <PhoneSchedule timeLabels={timeLabels} allSem={allSem} teachers={teachersData}/>
     },
   ])
 

@@ -8,6 +8,8 @@ class Time{
   constructor(time){
     let strTime = time.toString()
 
+    
+
     if(strTime.length >= 3){
       this.hours = Number(strTime.slice(0,-2))
       this.minutes = Number(strTime.slice(-2))
@@ -15,6 +17,10 @@ class Time{
       this.hours = 0
       this.minutes = Number(strTime)
     }
+
+    this.dateClass = new Date()
+    this.dateClass.setHours(this.hours)
+    this.dateClass.setMinutes(this.minutes)
 
 
     this.isNoon = this.hours>=12
@@ -55,7 +61,8 @@ let allSem = {
       branches: ["cse", "ece"],
     },
     sem5: {
-      schedule: sem5,
+      schedule: sem5.sem5,
+      subjects: sem5,
       name: "Semester - 5",
       branches: ["cse", "ece"],
     },
@@ -80,7 +87,7 @@ let timeLabels_ = [
     new Time(1010),
     new Time(1105),
     new Time(1200),
-    new Time(1200),
+    new Time(1250),
     new Time(1415),
     new Time(1505),
     new Time(1510),

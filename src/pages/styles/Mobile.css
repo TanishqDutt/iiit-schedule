@@ -18,11 +18,19 @@
     --btn2-border: #5b79ff;
     --btn2-color: #230586;
 
-    --type-1: #F4F1BB;
+    --type-1: #FF0052;
+    --type-2: #FFD400;
+    --type-3: #00C68D;
+    --type-4: #0055DA;
+    --type-5: #B5B0BF;
+
+
+
+    /* --type-1: #F4F1BB;
     --type-2: #9BC1BC;
     --type-3: #DAA49A;
     --type-4: #E1BBC9;
-    --type-5: #B5B0BF;
+    --type-5: #B5B0BF; */
 
 }
 
@@ -52,6 +60,7 @@
     /* padding: 10px; */
     
     transition: transform 0.2s ease-in-out;
+    z-index: 12;
     
     
 }
@@ -84,6 +93,7 @@
     
     color: var(--btn-color);
     
+    box-shadow: 0 0 10px 3px rgba(128, 128, 128, 0.488);
     
 }
 .mobile-top .navbar button.sem-change{
@@ -105,6 +115,7 @@
     /* background: #000; */
     transition: transform 0.2s ease-in-out;
     top: 1.5em;
+    z-index: 10;
 }
 .mobile-top .rightpane.hidden{
     transform: translateX(100%);
@@ -123,14 +134,34 @@
     border-color: var(--btn2-border);
     transition: border 0.2s ease-in-out;
     transition: transform 0.1s ease-in-out;
-
+    
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 0 0 10px 3px rgba(128, 128, 128, 0.488);
 }
 
 .mobile-top .rightpane button.selected { 
     border: 0.15em solid var(--btn2-border);
+}
+
+
+.mobile-top .right, .mobile-top .left{
+    position: fixed;
+}
+.mobile-top .right{
+    right: 0;
+    top: 50%;
+    translate: 0 -50%;
+    height: 2em;
+    font-size: 5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.1em;
+}
+.mobile-top .right svg, .mobile-top .left svg{
+    height: 1em;
 }
 
 
@@ -143,14 +174,66 @@ button:active{
 }
 
 
+
+.mobile-top .popup{
+    /* background: rgba(255, 0, 0, 0.474); */
+    height: 100dvh;
+    width: 100vw;
+    position: fixed;
+    z-index: 11;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: translate 0.5s ease-in-out;
+}
+
+.mobile-top .popup.hidden{
+    translate: 0 -100%;
+}
+
+.mobile-top .popup *:first-child{
+    border-radius: 0.8em 0.8em 0.4em 0.4em;
+}
+.mobile-top .popup *:last-child{
+    border-radius: 0.4em 0.4em 0.8em 0.8em;
+}
+
+.mobile-top .popup *{
+    color: var(--btn-color);
+    background-color: var(--btn-background);
+    border: 0.2em solid var(--btn-border);
+    font-size: 1.5em;
+    padding: 1em;
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+    border-radius: 0.4em;
+    text-decoration: none;
+    box-shadow: 0 0 10px 10px rgba(128, 128, 128, 0.488);
+    min-width: 50vw;
+}
+
+
+
+.mobile-main .class{
+    padding: 0.5em;
+    color:white;
+    position: relative;
+}
+
+
+
+
 .class.type-1{
     background-color: var(--type-1);
 }
 .class.type-2{
     background-color: var(--type-2);
+    color:black;
 }
 .class.type-3{
     background-color: var(--type-3);
+    color: black;
 }
 .class.type-4{
     background-color: var(--type-4);
@@ -160,8 +243,102 @@ button:active{
 }
 
 
+
+.class.type-1 div.flag{
+    color: var(--type-1);
+}
+.class.type-2 div.flag{
+    color: var(--type-2);
+}
+.class.type-3 div.flag{
+    color: var(--type-3);
+}
+.class.type-4 div.flag{
+    color: var(--type-4);
+}
+.class.type-5 div.flag{
+    color: var(--type-5);
+}
+
+
 .mobile-main .seperator{
     width: 100vw;
     height: 4.8em;
     background-image: url("../../assets/grid_bg.png");
+}
+
+
+.mobile-main .class .classname{
+    width: 80%;
+    margin-top: 0.6em;
+    margin-bottom: 1em;
+    margin-left: 0.2em;
+}
+
+.mobile-main .class .classname .heading{
+    font-size: 2em;
+    font-weight: 600;
+}
+.mobile-main .class .classname .code{
+    font-size: 1.3em;
+    font-style: italic;
+    font-weight: 350;
+}
+
+.mobile-main .class .timebar{
+    font-size: 1.2em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    margin-top: 0.2em;
+}
+
+.mobile-main .class .timebar svg{
+    height: 2em;
+    margin-left: 0.2em;
+    margin-right: 0.2em;
+}
+
+.mobile-main .class .timebar .time-label{
+    display: inline;
+    font-size: inherit;
+
+    padding: 0.3em;
+    border: 2px solid;
+    border-radius: 30px;
+
+}
+
+
+.mobile-main .class .teachers,
+.mobile-main .class .room{
+    margin-top: 0.7em;
+}
+
+
+span.highlighted{
+    background: #eed2ff;
+    color: rgb(0, 0, 0);
+    padding: 2px;
+    margin: 2px;
+    margin-left: 6px;
+    border-radius:5px;
+    border: 1px solid #dda7ff;
+    box-shadow: 0 0 2px 2px rgba(134, 134, 134, 0.475);
+}
+
+div.flag{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    margin: 0.5em;
+    font-size: 1.2em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 2em;
+    background-color: white;
+    color: transparent;
+
 }
